@@ -331,10 +331,49 @@ export class ReportsComponent implements OnInit, OnDestroy {
         this.fetchPosReport(e.data);
         break;
 
+        case 'pos2':
+        this.fetchPos2Report(e.data);
+        break;
+
       default:
         break;
     }
   }
+
+  async fetchPos2Report(reportData: any) {
+    const encURL = reportData.hasOwnProperty('fromDate') ? await AuthConfig.config.encodeUrl(ReportsApi.url.pos2.txn_report2) : await AuthConfig.config.encodeUrl(ReportsApi.url.pos2.txn_report2);
+      this.reportService.transactionAPI(encURL, reportData)
+      .pipe(finalize(() => { this.fetchingReport = false; }))
+      .subscribe(
+        (res: any) => {
+          this.reportsSource = this.reports = reportData.hasOwnProperty('transactionType') ? res.BQReport : res.results.BQReport;
+          if (this.reports.length) {
+            this.tableCols = Object.keys(this.reports[0]).map((col) => {
+              switch (col) {
+                case 'Id':
+                  return { prop: col };
+                case 'status':
+                  return { name: col.replace(/([A-Z])/g, ' $1'), cellTemplate: this.checkTemplate };
+                case 'createdDate':
+                case 'updatedDate':
+                  return { name: col.replace(/([A-Z])/g, ' $1'), cellTemplate: this.dateTemplate };
+                default:
+                  return { name: col.replace(/([A-Z])/g, ' $1') };
+              }
+            });
+            // this.tableCols.push({ name: 'Actions', cellTemplate: this.actionTemplate });
+          } else {
+            vex.dialog.alert('No Data Found!!');
+          }
+        },
+        (err: any) => {
+          // console.log('Error: ', err);
+          this.reportsSource = this.reports = [];
+        }
+      );
+
+  }
+
   async fetchPosReport(reportData: any) {
     const encURL = reportData.hasOwnProperty('fromDate') ? await AuthConfig.config.encodeUrl(ReportsApi.url.pos.txn_report) : await AuthConfig.config.encodeUrl(ReportsApi.url.pos.txn_report);
       this.reportService.transactionAPI(encURL, reportData)

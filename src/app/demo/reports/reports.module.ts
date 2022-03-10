@@ -25,6 +25,7 @@ import { WalletTransComponent } from "./wallet-form-component/wallet.component";
 import { Dmt2FormComponent } from './dmt2-form-component/dmt2-form.component';
 import { RechargeReportComponent } from './recharge-report/recharge-report.component';
 import { PosComponent } from "./pos/pos.component";
+import { Pos2Component } from "../pos2/pos2.component";
 
 const routes: Routes = [
   {
@@ -44,7 +45,8 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     NgxDatatableModule,
-    OwlDateTimeModule, OwlNativeDateTimeModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
     AutocompleteLibModule,
     MatSelectModule,
     MatAutocompleteModule,
@@ -69,7 +71,8 @@ const routes: Routes = [
     UpiTransComponent,
     Dmt2FormComponent,
     RechargeReportComponent,
-    PosComponent
+    PosComponent,
+    Pos2Component
   ],
   providers: [ReportsParamResolver]
 })

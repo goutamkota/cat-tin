@@ -46,6 +46,11 @@ const routes: Routes = [
         loadChildren: () => import('./demo/reports/reports.module').then(module => module.ReportsModule)
       },
       {
+        path: 'pos2',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./demo/pos2/pos2.module').then(module => module.Pos2Module)
+      },
+      {
         path: 'member',
         canActivate: [AuthGuard],
         loadChildren: () => import('./demo/member/member.module').then(module => module.MemberModule)

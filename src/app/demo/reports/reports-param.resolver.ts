@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Router } from "@angular/router";
 
 @Injectable()
 export class ReportsParamResolver implements Resolve<any> {
-    allowedRoutes = [ 'upi', 'wallet', 'commission', 'cashout', 'insurance', 'bbps', 'matm', 'aeps', 'dmt', 'dmt2', 'recharge' , 'recharge2','pos'];
+    allowedRoutes = [ 'upi', 'wallet', 'commission', 'cashout', 'insurance', 'bbps', 'matm', 'aeps', 'dmt', 'dmt2', 'recharge' , 'recharge2','pos','pos2'];
 
     constructor(
         private router: Router

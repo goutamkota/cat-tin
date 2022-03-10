@@ -26,6 +26,8 @@
 					[fetchingReport]="fetchingReport"></app-recharge-report>
 				<app-pos *ngSwitchCase="'pos'" (posData)="getFormData($event)" [fetchingReport]="fetchingReport"></app-pos>
 				<p *ngSwitchDefault>Nothing Works!!</p>
+				<app-pos2 *ngSwitchCase="'pos'" (pos2Data)="getFormData($event)" [fetchingReport]="fetchingReport"></app-pos2>
+				<p *ngSwitchDefault>Nothing Works!!</p>
 			</ng-container>
 		</div>
 	</div>

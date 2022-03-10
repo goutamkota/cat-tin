@@ -5,16 +5,18 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { StorageService } from "src/app/storage.service";
 import * as moment from 'moment';
-import { ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { ReportsApi } from '../reports/reports.api';
+import { ReportsService } from "../reports/reports.service";
 
 @Component({
-  selector: 'app-pos',
-  templateUrl: './pos.component.html',
-  styleUrls: ['./pos.component.scss']
+  selector: 'app-pos2',
+  templateUrl: './pos2.component.html',
+  styleUrls: ['./pos2.component.scss']
 })
-export class PosComponent implements OnInit {
+export class Pos2Component implements OnInit {
 
-  posForm: FormGroup;
+  pos2Form: FormGroup;
   today = new Date();
   minimumDate = new Date();
   minimumDate1 = new Date();
@@ -23,21 +25,15 @@ export class PosComponent implements OnInit {
   advancesearchdata: any;
   advancesearchflag: any;
   @Input() fetchingReport: boolean;
-  @Output() posData = new EventEmitter();
+  @Output() pos2Data = new EventEmitter();
   unsubscribeSubs = new Subject();
   newdate: any;
-  adv_search: boolean = false;
-  searchByMob: boolean = false;
-  MOBILE: boolean = false;
-  TXN: boolean = false;
-  sval: string = "txnid";
-  // posData: any;
-  constructor(private datePipe: DatePipe, private storageService: StorageService, private cdref: ChangeDetectorRef) { }
+  constructor(private datePipe: DatePipe, private storageService: StorageService, private cdref: ChangeDetectorRef,private reportService: ReportsService,) { }
 
   ngOnInit() {
-    this.posForm = new FormGroup({
-      posReport: new FormControl('POS REPORT', null),
-      subCat1: new FormControl('POS', null),
+    this.pos2Form = new FormGroup({
+      pos2Report: new FormControl('POS REPORT', null),
+      subCat2: new FormControl('POS', null),
       dateRange: new FormControl(this.today, Validators.required),
       dateRange1: new FormControl(this.today, Validators.required),
     });
@@ -49,7 +45,7 @@ export class PosComponent implements OnInit {
 
 
   subscribeDateRange() {
-    this.posForm.get('dateRange').valueChanges
+    this.pos2Form.get('dateRange').valueChanges
       .pipe(takeUntil(this.unsubscribeSubs))
       .subscribe(
         val => {
@@ -67,17 +63,17 @@ export class PosComponent implements OnInit {
     if ((moment().isAfter(nextWeek))) {
       this.somedate.setDate(new Date(addedDate).getDate());
       this.somedate1 = new Date(addedDate);
-      this.posForm.get('dateRange1').setValue(this.somedate1);
+      this.pos2Form.get('dateRange1').setValue(this.somedate1);
 
     }
     else {
       this.somedate1 = this.today;
-      this.posForm.get('dateRange1').setValue(this.today);
+      this.pos2Form.get('dateRange1').setValue(this.today);
     }
 
   }
   subscribeDateRange1() {// Double datepicker added by Akash
-    this.posForm.get('dateRange1').valueChanges
+    this.pos2Form.get('dateRange1').valueChanges
       .pipe(takeUntil(this.unsubscribeSubs))
       .subscribe(
         val => {
@@ -89,7 +85,9 @@ export class PosComponent implements OnInit {
   submitPos() {
 
     let reportData = {};
-    const { dateRange, dateRange1 } = this.posForm.value;
+
+    const { dateRange, dateRange1 } = this.pos2Form.value;
+
     reportData = {
       "$1": "all_transaction_report",
       "$2": "demoisu",
@@ -103,9 +101,15 @@ export class PosComponent implements OnInit {
         "Sale@POS"
       ]
     };
-    this.posData.emit({ type: 'pos', data: reportData });
+    this.pos2Data.emit({ type: 'pos2', data: reportData });
 
   }
+
+
+  // this.dmt2Data.emit({ type: 'dmt2', data: { reportData, type, reporttype, reportDataG, reportDataGA, advsearch } });
+
+  // this.dmt2Data.emit({type: 'dmt2', data: {reportData, retry: subCat === "RETRY" ? true : false, refund: subCat === "REFUNDPENDING" ? true : false }});
+
 
   ngOnDestroy() {
     this.unsubscribeSubs.next(true);

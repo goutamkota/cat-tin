@@ -51,6 +51,9 @@ export class ReportsApi {
         pos: {
             txn_report: 'https://unifiedalltxnreportstaging-zwqcqy3qmq-uc.a.run.app/unified_all_transaction_report'
         },
+        pos2: {
+            txn_report2: 'https://unifiedalltxnreportstaging-zwqcqy3qmq-uc.a.run.app/unified_all_transaction_report'
+        },
 
         cashout: {
             aeps_matm: 'https://itpl.iserveu.tech/BQ/transactiondetails',
@@ -75,7 +78,7 @@ export class ReportsApi {
             //  wallet_intrchng: 'https://newdmtreportv2-vn3k2k7q7q-uc.a.run.app/dmt_report', //new live
             userwallet: 'https://itpl.iserveu.tech/BQ/transactiondetails'
         },
-        
+
         shopName: 'https://itpl.iserveu.tech/usershopinfo.json',
         // shopName2: 'https://wallet.iserveu.online/CORESTAGING/user/user_details', //staging
         shopName2: 'https://itpl.iserveu.tech/user/user_details',

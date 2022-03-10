@@ -82,6 +82,8 @@ export class NavigationItem {
         }
       ]
     },
+    
+        
     {
       id: 'services',
       title: 'SERVICES',
@@ -136,6 +138,11 @@ export class NavigationItem {
               type: 'item',
               url: '/v1/reports/pos'
             },
+            {
+              id: 'pos2',
+              title: 'POS2',
+              url: '/v1/pos2',
+            }
           ]
         },
         {
