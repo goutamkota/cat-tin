@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "posreportadmin",
+    "preprod": "iserveustaging",
+    "staging": "posreportadmin"
+  },
+  "targets": {}
+}
